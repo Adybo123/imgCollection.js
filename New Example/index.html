@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Image array test</title>
+    <script
+			  src="https://code.jquery.com/jquery-3.3.1.min.js"
+			  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+			  crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="slick.css"/>
+    <script type="text/javascript" src="slick.js"></script>
+    <script src='../imgCollection.js'></script>
+    <style>
+      .testImage {
+        float: left;
+        padding: 10px;
+      }
+      .testImage > img {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <button onclick='myFilter.showAllBut([]);'>Show All</button><br />
+    <button onclick='myFilter.showAllBut(["stock"]);'>Show all but stock photos</button><br />
+    <button onclick='myFilter.showAllBut(["stock", "landscapes"]);'>Show all but stock & landscape photos</button><br />
+    <button onclick='myFilter.showJust(["landscapes"]);'>Show just landscape photos</button><br />
+    <div id='imageCollection'></div>
+
+    <script>
+      //Example image filter usage
+      var imageCollection = {
+        'portraits': [
+          'img/pt1.png'
+        ],
+        'landscapes': [
+          'img/ls1.jpg',
+          'img/ls2.jpg'
+        ],
+        'stock': [
+          'img/st1.jpg',
+          'img/st2.jpg',
+          'img/st3.jpg'
+        ]
+      }
+
+      // slickerFilter for slick,
+      // imgFilter for DOM
+
+      var myFilter;
+
+      $( document ).ready(function () {
+        myFilter = new slickerFilter(
+          {
+            slidesToShow: 4
+          },
+          $('#imageCollection'),
+          imageCollection,
+          '<div class="testImage"><img src="%SRC%" /></div>',
+          ['portraits', 'landscapes', 'stock'],
+          function (obj) {
+            console.log('Custom onAppend handler!');
+            console.log(obj)
+          }
+        );
+        myFilter.updateDisplay();
+      });
+    </script>
+  </body>
+</html>
